@@ -64,33 +64,33 @@ for ( let i = 0; i < char; i++ ) {
 
 //correct the password if it does not include any of the requested character sets
 
-let checkOccurence = function (password, characters) {
+let checkOccurence = function (password1, characters) {
   let notoccurence = true; //no special symbols occurence in the password flag
 
     for (let i = 0; ((notoccurence) && (i < characters.length)); i++) {
-      notoccurence = (password.indexOf(characters[i]) == -1);
+      notoccurence = (password1.indexOf(characters[i]) == -1);
     };
     // if notoccurence = false then everything is ok, password contains the correct characters
     if (notoccurence) {
-      password[Math.floor(Math.random() * password.length)] = characters.charAt(Math.floor(Math.random() * characters.length));
+      password1[Math.floor(Math.random() * password1.length)] = characters.charAt(Math.floor(Math.random() * characters.length));
     };
-
+    return password1;
 };
 
 if (lower) {
-  checkOccurence(password, lowerCharacters);
+  password = checkOccurence(password, lowerCharacters);
 };
 
 if (upper) {
-  checkOccurence(password, upperCharacters);
+  password = checkOccurence(password, upperCharacters);
 };
 
 if (numericCharacters) {
-  checkOccurence(password, numericCharacters);
+  password = checkOccurence(password, numericCharacters);
 };
 
 if (specialCharacters) {
-  checkOccurence(password, specialCharacters);
+  password = checkOccurence(password, specialCharacters);
 };
 
 //change the box heading that the password has been generated
