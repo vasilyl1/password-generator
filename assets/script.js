@@ -5,6 +5,7 @@ let generatePassword = function() {
   let passwordText = document.querySelector(".card-header");
   let passwordTextBox = document.querySelector("#password");
   let char = 20; //characters 8-128
+  let inputStr = ""; //input string
   let lower = false; //lower characters
   let upper = false; //upper characters
   let numeric = false; //numeric characters
@@ -22,9 +23,10 @@ let generatePassword = function() {
     if (char !=20 ) {
       alert("Invalid input for length - enter 8 to 128");
     };
-    char = parseInt(prompt ("How many characters in your password?", "8-128"),10);
+    inputStr = prompt ("How many characters in your password?", "8-128");
+    char = parseInt (inputStr, 10);
 
-  } while ((char < 8) || (char > 128) || (char !== char));
+  } while ((char < 8) || (char > 128) || (isNaN(inputStr)));
 
 //input the number of lower characters
   do {
@@ -60,6 +62,36 @@ for ( let i = 0; i < char; i++ ) {
   password += characters.charAt(Math.floor(Math.random() * characters.length));
 };
 
+//correct the password if it does not include any of the requested character sets
+
+let checkOccurence = function (password, characters) {
+  let notoccurence = true; //no special symbols occurence in the password flag
+
+    for (let i = 0; ((notoccurence) && (i < characters.length)); i++) {
+      notoccurence = (password.indexOf(characters[i]) == -1);
+    };
+    // if notoccurence = false then everything is ok, password contains the correct characters
+    if (notoccurence) {
+      password[Math.floor(Math.random() * password.length)] = characters.charAt(Math.floor(Math.random() * characters.length));
+    };
+
+};
+
+if (lower) {
+  checkOccurence(password, lowerCharacters);
+};
+
+if (upper) {
+  checkOccurence(password, upperCharacters);
+};
+
+if (numericCharacters) {
+  checkOccurence(password, numericCharacters);
+};
+
+if (specialCharacters) {
+  checkOccurence(password, specialCharacters);
+};
 
 //change the box heading that the password has been generated
   passwordText.children[0].textContent = "Congratulations, your password is printed in the box below. Please store it in a safe place!";
