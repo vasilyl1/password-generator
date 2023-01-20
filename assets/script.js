@@ -65,6 +65,7 @@ for ( let i = 0; i < char; i++ ) {
 //correct the password if it does not include any of the requested character sets
 
 let checkOccurence = function (password1, characters) {
+
   let notoccurence = true; //no special symbols occurence in the password flag
 
     for (let i = 0; ((notoccurence) && (i < characters.length)); i++) {
@@ -72,7 +73,10 @@ let checkOccurence = function (password1, characters) {
     };
     // if notoccurence = false then everything is ok, password contains the correct characters
     if (notoccurence) {
-      password1[Math.floor(Math.random() * password1.length)] = characters.charAt(Math.floor(Math.random() * characters.length));
+      let randomPassPosition = Math.floor(Math.random() * password1.length);
+      password1 = password1.substring(0,randomPassPosition) 
+                + characters.charAt(Math.floor(Math.random() * characters.length))
+                + password1.substring(randomPassPosition+1, password1.length);
     };
     return password1;
 };
@@ -85,11 +89,11 @@ if (upper) {
   password = checkOccurence(password, upperCharacters);
 };
 
-if (numericCharacters) {
+if (numeric) {
   password = checkOccurence(password, numericCharacters);
 };
 
-if (specialCharacters) {
+if (special) {
   password = checkOccurence(password, specialCharacters);
 };
 
